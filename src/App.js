@@ -20,7 +20,7 @@ function App() {
     const user = { name, email };
     console.log(user); //amader data user
 
-    
+
     //postar aj
     fetch('http://localhost:5000/users', {
       method: 'POST',
@@ -30,7 +30,11 @@ function App() {
       body: JSON.stringify(user)
     })
       .then(res => res.json())
-      .then(data => console.log(data))  
+      .then(data => {
+        console.log(data);
+        const newUsers = [...users, data];
+        setUsers(newUsers);
+      })
       .catch(err => console.error(err))
 
     event.target.reset();// field clear
@@ -44,9 +48,9 @@ function App() {
     <div className="App">
 
       <form onSubmit={handleAddUser}>
-        <input type="text" name="name" placeholder='Name' />
+        <input type="text" name="name" placeholder='Name' required/>
         <br />
-        <input type="email" name="email" id="" placeholder='Email' />
+        <input type="email" name="email" id="" placeholder='Email' required/>
         <br />
         <button type="submit">Add User</button>
       </form>
